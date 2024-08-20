@@ -7,8 +7,12 @@ import (
 	"fmt"
 	"regexp"
 
+	// "github.com/cloudflare/terraform-provider-cloudflare/internal/services/spectrum_application"
+	// "github.com/cloudflare/terraform-provider-cloudflare/internal/services/load_balancer_pool"
+
 	"github.com/cloudflare/cloudflare-go/v2"
 	"github.com/cloudflare/cloudflare-go/v2/option"
+	"github.com/cloudflare/terraform-provider-cloudflare/internal/consts"
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/access_rule"
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/account"
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/account_member"
@@ -44,7 +48,6 @@ import (
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/list_item"
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/load_balancer"
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/load_balancer_monitor"
-	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/load_balancer_pool"
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/logpull_retention"
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/logpush_job"
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/logpush_ownership_challenge"
@@ -67,7 +70,6 @@ import (
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/regional_hostname"
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/regional_tiered_cache"
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/ruleset"
-	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/spectrum_application"
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/tiered_cache"
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/total_tls"
 	"github.com/cloudflare/terraform-provider-cloudflare/internal/services/turnstile_widget"
@@ -287,7 +289,7 @@ func (p *CloudflareProvider) Resources(ctx context.Context) []func() resource.Re
 		zone_hold.NewResource,
 		load_balancer.NewResource,
 		load_balancer_monitor.NewResource,
-		load_balancer_pool.NewResource,
+		// load_balancer_pool.NewResource,
 		zone_cache_reserve.NewResource,
 		tiered_cache.NewResource,
 		zone_cache_variants.NewResource,
@@ -338,7 +340,7 @@ func (p *CloudflareProvider) Resources(ctx context.Context) []func() resource.Re
 		managed_headers.NewResource,
 		ruleset.NewResource,
 		url_normalization_settings.NewResource,
-		spectrum_application.NewResource,
+		// spectrum_application.NewResource,
 		regional_hostname.NewResource,
 		address_map.NewResource,
 		byo_ip_prefix.NewResource,
@@ -413,8 +415,8 @@ func (p *CloudflareProvider) DataSources(ctx context.Context) []func() datasourc
 		load_balancer.NewLoadBalancersDataSource,
 		load_balancer_monitor.NewLoadBalancerMonitorDataSource,
 		load_balancer_monitor.NewLoadBalancerMonitorsDataSource,
-		load_balancer_pool.NewLoadBalancerPoolDataSource,
-		load_balancer_pool.NewLoadBalancerPoolsDataSource,
+		// load_balancer_pool.NewLoadBalancerPoolDataSource,
+		// load_balancer_pool.NewLoadBalancerPoolsDataSource,
 		zone_cache_reserve.NewZoneCacheReserveDataSource,
 		tiered_cache.NewTieredCacheDataSource,
 		zone_cache_variants.NewZoneCacheVariantsDataSource,
@@ -490,7 +492,7 @@ func (p *CloudflareProvider) DataSources(ctx context.Context) []func() datasourc
 		ruleset.NewRulesetDataSource,
 		ruleset.NewRulesetsDataSource,
 		url_normalization_settings.NewURLNormalizationSettingsDataSource,
-		spectrum_application.NewSpectrumApplicationDataSource,
+		// spectrum_application.NewSpectrumApplicationDataSource,
 		regional_hostname.NewRegionalHostnameDataSource,
 		regional_hostname.NewRegionalHostnamesDataSource,
 		address_map.NewAddressMapDataSource,
