@@ -1,8 +1,7 @@
-
-				resource "cloudflare_zone" "%[1]s" {
-					account_id = "%[6]s"
-					zone = "%[2]s"
-					paused = %[3]s
-					jump_start = %[4]s
-					plan = "%[5]s"
-				}
+resource "cloudflare_zone" "%[1]s" {
+    name = "%[2]s"
+    account = {
+        id = "%[3]s"
+    }
+    plan = "%[4]s"
+}
