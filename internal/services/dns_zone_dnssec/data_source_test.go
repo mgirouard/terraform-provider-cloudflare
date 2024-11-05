@@ -26,6 +26,12 @@ func TestAccCloudflareZoneDNSSEC(t *testing.T) {
 				Config: testAccCloudflareZoneDNSSECConfig(zoneID, rnd),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckCloudflareZoneDNSSECDataSourceID(name),
+					func(state *terraform.State) error {
+						fmt.Println("===================================================================")
+						fmt.Printf("%+v\n", state)
+						fmt.Println("===================================================================")
+						return nil
+					},
 					resource.TestCheckResourceAttrSet(name, consts.ZoneIDSchemaKey),
 					resource.TestMatchResourceAttr(name, "status", regexp.MustCompile("active|disabled|pending")),
 					resource.TestCheckResourceAttrSet(name, "flags"),

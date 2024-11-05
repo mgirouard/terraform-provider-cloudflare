@@ -188,7 +188,21 @@ func (r *DNSZoneDNSSECResource) Delete(ctx context.Context, req resource.DeleteR
 		return
 	}
 
-	_, err := r.client.DNSSEC.Delete(
+	var err error
+	_, err = r.client.DNSSEC.Edit(
+		ctx,
+		dnssec.DNSSECEditParams{
+			ZoneID: cloudflare.F(data.ZoneID.ValueString()),
+			Status: cloudflare.F[dnssec.DNSSECEditParamsStatus](dnssec.DNSSECEditParamsStatusDisabled),
+		},
+		option.WithMiddleware(logging.Middleware(ctx)),
+	)
+	if err != nil {
+		resp.Diagnostics.AddError("failed to make http request", err.Error())
+		return
+	}
+
+	_, err = r.client.DNSSEC.Delete(
 		ctx,
 		dnssec.DNSSECDeleteParams{
 			ZoneID: cloudflare.F(data.ZoneID.ValueString()),
