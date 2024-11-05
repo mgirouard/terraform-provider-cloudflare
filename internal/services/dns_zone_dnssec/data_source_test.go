@@ -62,6 +62,7 @@ func testAccCloudflareZoneDNSSECConfig(zoneID string, name string) string {
 	return fmt.Sprintf(`
 data "cloudflare_dns_zone_dnssec" "%s" {
 	zone_id = cloudflare_dns_zone_dnssec.%s.zone_id
+	status = "active"
 }
 
 %s
