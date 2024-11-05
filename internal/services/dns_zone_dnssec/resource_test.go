@@ -1,4 +1,4 @@
-package zone_dnssec_test
+package dns_zone_dnssec_test
 
 import (
 	"fmt"
