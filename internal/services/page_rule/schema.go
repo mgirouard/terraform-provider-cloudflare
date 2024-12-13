@@ -195,6 +195,9 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 							stringvalidator.OneOfCaseInsensitive("bypass", "basic", "simplified", "aggressive", "cache_everything"),
 						},
 					},
+					"cache_ttl_by_status": schema.ObjectAttribute{
+						Optional: true,
+					},
 					"cache_on_cookie": schema.StringAttribute{
 						Optional: true,
 					},

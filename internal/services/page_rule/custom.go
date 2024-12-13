@@ -105,6 +105,8 @@ type PageRuleActionsForwardingURLModel struct {
 	StatusCode types.Int64  `tfsdk:"status_code" json:"status_code,required"`
 }
 
+type PageRuleActionsCacheTTLByStatusModel map[string]any
+
 type PageRuleActionsModel struct {
 	AlwaysUseHTTPS          types.Bool                                                   `tfsdk:"always_use_https" json:"always_use_https,optional"`
 	AutomaticHTTPSRewrites  types.String                                                 `tfsdk:"automatic_https_rewrites" json:"automatic_https_rewrites,optional"`
@@ -116,6 +118,7 @@ type PageRuleActionsModel struct {
 	CacheLevel              types.String                                                 `tfsdk:"cache_level" json:"cache_level,optional"`
 	CacheOnCookie           types.String                                                 `tfsdk:"cache_on_cookie" json:"cache_on_cookie,optional"`
 	CacheKeyFields          customfield.NestedObject[PageRuleActionsCacheKeyFieldsModel] `tfsdk:"cache_key_fields" json:"cache_key_fields,optional"`
+	CacheTTLByStatus        types.Map                                                    `tfsdk:"cache_ttl_by_status" json:"cache_ttl_by_status,optional"`
 	DisableApps             types.Bool                                                   `tfsdk:"disable_apps" json:"disable_apps,optional"`
 	DisablePerformance      types.Bool                                                   `tfsdk:"disable_performance" json:"disable_performance,optional"`
 	DisableSecurity         types.Bool                                                   `tfsdk:"disable_security" json:"disable_security,optional"`
@@ -215,6 +218,10 @@ func (m *PageRuleActionsModel) Encode() (encoded []map[string]any, err error) {
 				},
 			},
 		})
+	}
+	if !m.CacheTTLByStatus.IsNull() {
+		cacheTTLByStatus, _ := m.CacheTTLByStatus.ToMapValue(context.Background())
+		encoded = append(encoded, map[string]any{"id": page_rules.PageRuleActionsIDCacheTTLByStatus, "value": cacheTTLByStatus})
 	}
 	if m.DisableApps.ValueBool() {
 		encoded = append(encoded, map[string]any{"id": page_rules.PageRuleActionsIDDisableApps, "value": m.DisableApps.ValueBool()})
